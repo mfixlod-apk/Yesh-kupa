@@ -24,12 +24,15 @@ class MainActivity : Activity() {
     private lateinit var nameInput: EditText
     private lateinit var priceInput: EditText
     private lateinit var searchInput: EditText
+    private lateinit var printerManager: PrinterManager
+    private lateinit var printerStatus: TextView
     private val cart = mutableListOf<CartLine>()
     private val money = NumberFormat.getCurrencyInstance(Locale("he", "IL"))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         store = PosStore(this)
+        printerManager = PrinterManager(this) { message -> if (::printerStatus.isInitialized) printerStatus.text = message }
         buildScreen()
         refresh()
     }
@@ -68,6 +71,16 @@ class MainActivity : Activity() {
         }
         page.addView(summary)
 
+        section(page, "מדפסת קבלות")
+        printerStatus = TextView(this).apply {
+            text = "לא בוצעה סריקה עדיין"
+            textSize = 14f
+            setTextColor(0xFF475467.toInt())
+            setPadding(0, dp(4), 0, dp(8))
+        }
+        page.addView(printerStatus, matchWidth())
+        page.addView(actionButton("סרוק מדפסות USB ו-Bluetooth") { printerManager.scan() }, matchWidth())
+
         section(page, "הוספת מוצר")
         nameInput = EditText(this).apply {
             hint = "שם המוצר"
@@ -100,6 +113,17 @@ class MainActivity : Activity() {
             cart.clear()
             refresh()
         }, matchWidth())
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == PrinterManager.REQUEST_BLUETOOTH) {
+            if (grantResults.isNotEmpty() && grantResults[0] == android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                printerManager.scan()
+            } else {
+                if (::printerStatus.isInitialized) printerStatus.text = "הרשאת Bluetooth לא אושרה; סריקת USB עדיין זמינה."
+            }
+        }
     }
 
     private fun section(parent: LinearLayout, title: String) {
