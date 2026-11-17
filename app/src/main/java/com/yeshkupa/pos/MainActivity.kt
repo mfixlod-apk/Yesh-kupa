@@ -200,7 +200,7 @@ class MainActivity : Activity() {
         showScreen("pos")
         toast("המכירה נשמרה בהצלחה")
         if (getSharedPreferences("pos_settings", MODE_PRIVATE).getBoolean("print_after_sale", false)) {
-            toast("המכירה נשמרה. בחר מדפסת במסך הגדרות להדפסת קבלה.")
+            printerManager.printReceipt(receipt)
         }
     }
 
@@ -316,7 +316,7 @@ class MainActivity : Activity() {
         content.addView(button("הדפס שוב את הקבלה האחרונה") {
             val receipt = getSharedPreferences("pos_settings", MODE_PRIVATE).getString("last_receipt", null)
             if (receipt.isNullOrBlank()) toast("אין קבלה אחרונה להדפסה")
-            else toast("בחר מדפסת וחבר אותה. הדפסת קבלה מלאה תתווסף לאחר בדיקת דגם המדפסת.")
+            else printerManager.printReceipt(receipt)
         }, match())
         section(content, "אפשרויות קופה")
         val autoPrint = CheckBox(this).apply {
