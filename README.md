@@ -1,42 +1,46 @@
-# Yesh Kupa
+# יש קופה (Yesh Kupa)
 
-Yesh Kupa is an Android point-of-sale (POS) project intended to grow into a multi-business SaaS product with monthly subscriptions.
+אפליקציית Android לניהול מכירות ומוצרים בעסק קטן, עם ממשק בעברית ובכיווניות RTL.
 
-## Current project baseline
+## מה קיים כרגע בגרסת ה-MVP
 
-- Native Android application written in Kotlin
-- Jetpack Compose UI
-- Room local database
-- Hebrew / RTL user experience
-- Initial POS, product, document and reporting foundations
+- אפליקציית Android Native ב-Kotlin.
+- קטלוג מוצרים מקומי עם שם ומחיר מכירה.
+- חיפוש מוצרים לפי שם.
+- סל קנייה עם שינוי כמויות.
+- שמירת מכירות ופריטי מכירה במסד SQLite מקומי.
+- סיכום מחזור מכירות יומי.
+- בנייה אוטומטית של APK באמצעות GitHub Actions.
 
-This repository is the home for the application source, technical documentation, build automation and release history.
+## מה עדיין לא קיים
 
-## Product direction
+- סריקת ברקוד.
+- ניהול מלאי ועלויות רכש.
+- חישוב רווח לפי עלות מוצר.
+- הדפסה למדפסת תרמית ומגירת מזומן.
+- משתמשים, הרשאות וסנכרון ענן.
+- הפקת מסמכים חשבונאיים מאושרים.
 
-1. Stabilize the local POS MVP
-2. Complete product catalog, barcode workflow and inventory
-3. Add cost, gross profit and business reports
-4. Add receipt printing and compliant document-provider integration
-5. Introduce secure cloud sync and business-level data isolation
-6. Add business accounts, roles and subscription plans
+## בניית APK
 
-## Important
+כל push לענף `main` מפעיל את תהליך Android APK Build. לאחר שהריצה מסתיימת בהצלחה, ניתן להוריד את `yesh-kupa-debug-apk` מאזור Artifacts של אותה ריצה.
 
-This is a development project, not a certified fiscal system. Before commercial use, Israeli tax, invoicing, privacy, security and payment requirements must be reviewed with qualified providers and professionals.
+## מבנה
 
-## Documentation
+- `app/` — קוד אפליקציית Android.
+- `.github/workflows/` — תהליכי CI לבנייה.
+- `docs/` — אפיון, ארכיטקטורה ותוכנית עבודה.
 
-- [Product roadmap](docs/master-plan.md)
-- [MVP scope](docs/mvp-spec.md)
-- [Architecture](docs/architecture.md)
-- [Compliance checklist](docs/compliance-checklist.md)
+## הבהרה חשובה
 
-## Build
+זו גרסת MVP לפיתוח ולבדיקות בלבד. היא שומרת נתונים מקומית במכשיר ואינה מערכת חשבונאית מאושרת. אין להשתמש בה להפקת מסמכים חשבונאיים או כתחליף לתוכנת חשבוניות מאושרת. לפני שימוש מסחרי נדרשים בדיקות, גיבוי, אבטחה ובדיקת דרישות הדין בישראל מול גורם מקצועי.
 
-Open the Android project in Android Studio and allow Gradle sync. Build automation and a verified APK release will be added after the full source tree and Gradle wrapper are committed.
+## המשך הפיתוח
 
-## Repository
-
-Owner: mfixlod-apk  
-Repository: Yesh-kupa
+1. אימות בנייה והתקנה במכשיר Android.
+2. ברקוד וחיפוש מהיר בקופה.
+3. עלות מוצר, מלאי ורווח גולמי.
+4. מסך היסטוריית מכירות וביטולים מבוקרים.
+5. הדפסה תרמית.
+6. גיבוי וסנכרון מאובטח.
+7. אינטגרציה עם ספק מסמכים חשבונאיים מאושר.
