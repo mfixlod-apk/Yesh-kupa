@@ -71,12 +71,12 @@ class MainActivity : Activity() {
         section(page, "הוספת מוצר")
         nameInput = EditText(this).apply {
             hint = "שם המוצר"
-            singleLine = true
+            setSingleLine(true)
         }
         priceInput = EditText(this).apply {
             hint = "מחיר מכירה בש״ח"
             inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
-            singleLine = true
+            setSingleLine(true)
         }
         page.addView(nameInput, matchWidth())
         page.addView(priceInput, matchWidth())
@@ -85,7 +85,7 @@ class MainActivity : Activity() {
         section(page, "חיפוש ובחירת מוצר")
         searchInput = EditText(this).apply {
             hint = "חיפוש לפי שם מוצר"
-            singleLine = true
+            setSingleLine(true)
         }
         page.addView(searchInput, matchWidth())
         searchInput.addTextChangedListener(SimpleTextWatcher { refreshProducts() })
